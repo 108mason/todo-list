@@ -124,3 +124,82 @@ h1 {
     padding: 40px 20px;
     font-size: 18px;
 }
+
+/* Mobile-friendly responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .input-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #taskInput {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    #addButton {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .task-item {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .task-text {
+        font-size: 15px;
+        word-break: break-word;
+    }
+
+    .delete-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .flag-checkbox {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+    }
+
+    .empty-state {
+        font-size: 16px;
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .task-item {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .task-text {
+        font-size: 14px;
+    }
+
+    .delete-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
