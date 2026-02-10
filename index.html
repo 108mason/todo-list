@@ -3,25 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Todo List</title>
+    <title>Task Manager & Calendar</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Todo List</h1>
+    <div class="app-container">
+        <!-- Left Section: Task Manager -->
+        <div class="task-section">
+            <h1>Tasks</h1>
 
-        <div class="input-section">
-            <input type="text" id="taskInput" placeholder="Enter a new task..." />
-            <button id="addButton">Add Task</button>
+            <div class="input-section">
+                <input type="text" id="taskInput" placeholder="Enter a new task..." />
+                <button id="addButton">Add Task</button>
+            </div>
+
+            <ul id="taskList"></ul>
         </div>
 
-        <ul id="taskList"></ul>
+        <!-- Right Section: Calendar -->
+        <div class="calendar-section">
+            <div class="calendar-header">
+                <button id="prevMonth" class="nav-btn">&larr;</button>
+                <h2 id="currentMonth"></h2>
+                <button id="nextMonth" class="nav-btn">&rarr;</button>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+    </div>
+
+    <!-- Calendar Note Modal -->
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalDate"></h3>
+                <span class="close">&times;</span>
+            </div>
+            <textarea id="noteText" placeholder="Add notes for this date..."></textarea>
+            <button id="saveNote" class="save-btn">Save Note</button>
+        </div>
     </div>
 
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -39,7 +65,7 @@
 
         // Make db and Firestore functions available globally
         window.db = db;
-        window.firestoreFunctions = { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy };
+        window.firestoreFunctions = { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc };
     </script>
     <script src="script.js"></script>
 </body>

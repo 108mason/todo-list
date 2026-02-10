@@ -8,36 +8,52 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 20px;
 }
 
-.container {
+/* Desktop Layout - 3 sections */
+.app-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1800px;
+    margin: 0 auto;
+    height: calc(100vh - 40px);
+}
+
+.task-section {
+    flex: 0 0 33.333%;
     background: white;
-    padding: 40px;
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 600px;
+    overflow-y: auto;
+}
+
+.calendar-section {
+    flex: 0 0 66.666%;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 30px;
-    font-size: 2.5em;
+    margin-bottom: 25px;
+    font-size: 2em;
 }
 
 .input-section {
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 #taskInput {
-    flex: 1;
     padding: 12px 15px;
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -51,7 +67,7 @@ h1 {
 }
 
 #addButton {
-    padding: 12px 25px;
+    padding: 12px;
     background: #667eea;
     color: white;
     border: none;
@@ -71,12 +87,12 @@ h1 {
 
 .task-item {
     background: #f8f9fa;
-    padding: 15px;
+    padding: 12px;
     margin-bottom: 10px;
     border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -95,23 +111,26 @@ h1 {
     height: 20px;
     cursor: pointer;
     accent-color: #ff4444;
+    flex-shrink: 0;
 }
 
 .task-text {
     flex: 1;
-    font-size: 16px;
+    font-size: 15px;
     color: #333;
+    word-break: break-word;
 }
 
 .delete-btn {
-    padding: 8px 15px;
+    padding: 6px 12px;
     background: #ff4444;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     transition: background 0.3s;
+    white-space: nowrap;
 }
 
 .delete-btn:hover {
@@ -121,8 +140,185 @@ h1 {
 .empty-state {
     text-align: center;
     color: #999;
-    padding: 40px 20px;
+    padding: 30px 15px;
+    font-size: 16px;
+}
+
+/* Calendar Styles */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.calendar-header h2 {
+    font-size: 2em;
+    color: #333;
+}
+
+.nav-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
     font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background: #5568d3;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    flex: 1;
+}
+
+.calendar-day {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+}
+
+.calendar-day:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.calendar-day.today {
+    background: #667eea;
+    color: white;
+}
+
+.day-number {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.day-note {
+    font-size: 13px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+}
+
+.calendar-day.today .day-note {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.day-header {
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    background: #667eea;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    color: #333;
+    font-size: 1.5em;
+}
+
+.close {
+    font-size: 32px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #333;
+}
+
+#noteText {
+    width: 100%;
+    min-height: 200px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+#noteText:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.save-btn {
+    width: 100%;
+    padding: 15px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.save-btn:hover {
+    background: #5568d3;
 }
 
 /* Mobile-friendly responsive design */
@@ -131,8 +327,18 @@ h1 {
         padding: 10px;
     }
 
-    .container {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .task-section {
+        flex: 1;
         padding: 20px;
+    }
+
+    .calendar-section {
+        display: none;
     }
 
     h1 {
@@ -141,17 +347,14 @@ h1 {
     }
 
     .input-section {
-        flex-direction: column;
         gap: 10px;
     }
 
     #taskInput {
-        width: 100%;
         font-size: 16px;
     }
 
     #addButton {
-        width: 100%;
         padding: 14px;
         font-size: 16px;
     }
@@ -163,19 +366,16 @@ h1 {
 
     .task-text {
         font-size: 15px;
-        word-break: break-word;
     }
 
     .delete-btn {
         padding: 8px 12px;
         font-size: 13px;
-        white-space: nowrap;
     }
 
     .flag-checkbox {
         width: 22px;
         height: 22px;
-        flex-shrink: 0;
     }
 
     .empty-state {
