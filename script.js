@@ -234,6 +234,7 @@ function initializeApp() {
 }
 
 function switchTaskType(type) {
+    console.log('Switching to:', type);
     currentTaskType = type;
 
     // Update button states
@@ -243,6 +244,9 @@ function switchTaskType(type) {
     // Update title
     const title = type === 'life' ? 'Life Tasks' : 'Work Tasks';
     document.querySelector('.task-section h1').textContent = title;
+
+    // Clear current tasks display
+    document.getElementById('taskList').innerHTML = '<div class="empty-state">Loading tasks...</div>';
 
     // Reload tasks
     loadTaskView();
