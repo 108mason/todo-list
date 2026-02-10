@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1a 100%);
     min-height: 100vh;
     padding: 20px;
 }
@@ -20,10 +20,11 @@ body {
 }
 
 .auth-box {
-    background: white;
+    background: #1a1a1a;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 255, 65, 0.2);
+    border: 1px solid #00ff4120;
     width: 100%;
     max-width: 450px;
 }
@@ -31,19 +32,20 @@ body {
 .auth-box h1 {
     font-size: 2em;
     margin-bottom: 10px;
-    color: #333;
+    color: #00ff41;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .auth-subtitle {
     text-align: center;
-    color: #666;
+    color: #a0a0a0;
     margin-bottom: 30px;
     font-size: 14px;
 }
 
 .auth-form h2 {
     font-size: 1.5em;
-    color: #333;
+    color: #00ff41;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -52,49 +54,58 @@ body {
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
-    border: 2px solid #ddd;
+    background: #0a0a0a;
+    border: 2px solid #333;
     border-radius: 8px;
     font-size: 16px;
+    color: #e0e0e0;
     transition: border-color 0.3s;
 }
 
 .auth-form input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.auth-form input::placeholder {
+    color: #666;
 }
 
 .auth-btn {
     width: 100%;
     padding: 15px;
-    background: #667eea;
-    color: white;
+    background: #00ff41;
+    color: #0a0a0a;
     border: none;
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
     margin-bottom: 15px;
 }
 
 .auth-btn:hover {
-    background: #5568d3;
+    background: #00b32d;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
 }
 
 .auth-switch {
     text-align: center;
-    color: #666;
+    color: #a0a0a0;
     font-size: 14px;
 }
 
 .auth-switch a {
-    color: #667eea;
+    color: #00ff41;
     text-decoration: none;
     font-weight: bold;
 }
 
 .auth-switch a:hover {
     text-decoration: underline;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
 }
 
 .auth-error {
@@ -112,13 +123,14 @@ body {
     align-items: center;
     gap: 15px;
     padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.95);
+    background: #1a1a1a;
+    border: 1px solid #00ff4120;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .user-email {
-    color: #333;
+    color: #00ff41;
     font-size: 14px;
 }
 
@@ -130,11 +142,12 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 .logout-btn:hover {
     background: #cc0000;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
 }
 
 /* Desktop Layout - 3 sections */
@@ -151,28 +164,31 @@ body {
 
 .task-section {
     flex: 0 0 33.333%;
-    background: white;
+    background: #1a1a1a;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ff4120;
     overflow-y: auto;
 }
 
 .calendar-section {
     flex: 0 0 66.666%;
-    background: white;
+    background: #1a1a1a;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid #00ff4120;
     display: flex;
     flex-direction: column;
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #00ff41;
     margin-bottom: 25px;
     font-size: 2em;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .input-section {
@@ -184,30 +200,39 @@ h1 {
 
 #taskInput {
     padding: 12px 15px;
-    border: 2px solid #ddd;
+    background: #0a0a0a;
+    border: 2px solid #333;
     border-radius: 8px;
     font-size: 16px;
+    color: #e0e0e0;
     transition: border-color 0.3s;
 }
 
 #taskInput:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+#taskInput::placeholder {
+    color: #666;
 }
 
 #addButton {
     padding: 12px;
-    background: #667eea;
-    color: white;
+    background: #00ff41;
+    color: #0a0a0a;
     border: none;
     border-radius: 8px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 #addButton:hover {
-    background: #5568d3;
+    background: #00b32d;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
 }
 
 #taskList {
@@ -215,24 +240,27 @@ h1 {
 }
 
 .task-item {
-    background: #f8f9fa;
+    background: #0a0a0a;
     padding: 12px;
     margin-bottom: 10px;
     border-radius: 8px;
+    border: 1px solid #333;
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.2s;
 }
 
 .task-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.2);
+    border-color: #00ff4150;
 }
 
 .task-item.important {
-    background: #ffe5e5;
+    background: #2a0a0a;
     border-left: 4px solid #ff4444;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
 }
 
 .flag-checkbox {
@@ -246,7 +274,7 @@ h1 {
 .task-text {
     flex: 1;
     font-size: 15px;
-    color: #333;
+    color: #e0e0e0;
     word-break: break-word;
 }
 
@@ -258,17 +286,18 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 13px;
-    transition: background 0.3s;
+    transition: all 0.3s;
     white-space: nowrap;
 }
 
 .delete-btn:hover {
     background: #cc0000;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
 }
 
 .empty-state {
     text-align: center;
-    color: #999;
+    color: #666;
     padding: 30px 15px;
     font-size: 16px;
 }
@@ -283,22 +312,25 @@ h1 {
 
 .calendar-header h2 {
     font-size: 2em;
-    color: #333;
+    color: #00ff41;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .nav-btn {
-    background: #667eea;
-    color: white;
+    background: #00ff41;
+    color: #0a0a0a;
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
     font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 .nav-btn:hover {
-    background: #5568d3;
+    background: #00b32d;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
 }
 
 .calendar-grid {
@@ -309,7 +341,8 @@ h1 {
 }
 
 .calendar-day {
-    background: #f8f9fa;
+    background: #0a0a0a;
+    border: 1px solid #333;
     border-radius: 8px;
     padding: 15px;
     cursor: pointer;
@@ -320,9 +353,10 @@ h1 {
 }
 
 .calendar-day:hover {
-    background: #e9ecef;
+    background: #1a1a1a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.2);
+    border-color: #00ff4150;
 }
 
 .calendar-day.other-month {
@@ -331,19 +365,26 @@ h1 {
 }
 
 .calendar-day.today {
-    background: #667eea;
-    color: white;
+    background: #00ff41;
+    color: #0a0a0a;
+    border-color: #00ff41;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
 }
 
 .day-number {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 8px;
+    color: #00ff41;
+}
+
+.calendar-day.today .day-number {
+    color: #0a0a0a;
 }
 
 .day-note {
     font-size: 13px;
-    color: #666;
+    color: #a0a0a0;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -353,15 +394,15 @@ h1 {
 }
 
 .calendar-day.today .day-note {
-    color: rgba(255, 255, 255, 0.9);
+    color: #0a0a0a;
 }
 
 .day-header {
     font-weight: bold;
     text-align: center;
     padding: 15px;
-    background: #667eea;
-    color: white;
+    background: #00ff41;
+    color: #0a0a0a;
     border-radius: 8px;
     font-size: 16px;
 }
@@ -375,7 +416,7 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal.show {
@@ -385,12 +426,13 @@ h1 {
 }
 
 .modal-content {
-    background: white;
+    background: #1a1a1a;
     padding: 30px;
     border-radius: 15px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 255, 65, 0.3);
+    border: 1px solid #00ff4120;
 }
 
 .modal-header {
@@ -401,53 +443,64 @@ h1 {
 }
 
 .modal-header h3 {
-    color: #333;
+    color: #00ff41;
     font-size: 1.5em;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 .close {
     font-size: 32px;
     font-weight: bold;
-    color: #999;
+    color: #666;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.3s;
 }
 
 .close:hover {
-    color: #333;
+    color: #00ff41;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
 }
 
 #noteText {
     width: 100%;
     min-height: 200px;
     padding: 15px;
-    border: 2px solid #ddd;
+    background: #0a0a0a;
+    border: 2px solid #333;
     border-radius: 8px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
+    color: #e0e0e0;
     resize: vertical;
     margin-bottom: 15px;
 }
 
 #noteText:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+#noteText::placeholder {
+    color: #666;
 }
 
 .save-btn {
     width: 100%;
     padding: 15px;
-    background: #667eea;
-    color: white;
+    background: #00ff41;
+    color: #0a0a0a;
     border: none;
     border-radius: 8px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
 .save-btn:hover {
-    background: #5568d3;
+    background: #00b32d;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
 }
 
 /* Mobile-friendly responsive design */
