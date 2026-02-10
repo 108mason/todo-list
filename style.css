@@ -23,8 +23,8 @@ body {
     background: #1a1a1a;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 255, 65, 0.2);
-    border: 1px solid #00ff4120;
+    box-shadow: 0 10px 40px rgba(92, 255, 92, 0.2);
+    border: 1px solid #5CFF5C20;
     width: 100%;
     max-width: 450px;
 }
@@ -32,8 +32,8 @@ body {
 .auth-box h1 {
     font-size: 2em;
     margin-bottom: 10px;
-    color: #00ff41;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    color: #5CFF5C;
+    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .auth-subtitle {
@@ -45,7 +45,7 @@ body {
 
 .auth-form h2 {
     font-size: 1.5em;
-    color: #00ff41;
+    color: #5CFF5C;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -64,8 +64,8 @@ body {
 
 .auth-form input:focus {
     outline: none;
-    border-color: #00ff41;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    border-color: #5CFF5C;
+    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
 }
 
 .auth-form input::placeholder {
@@ -75,7 +75,7 @@ body {
 .auth-btn {
     width: 100%;
     padding: 15px;
-    background: #00ff41;
+    background: #5CFF5C;
     color: #0a0a0a;
     border: none;
     border-radius: 8px;
@@ -87,8 +87,8 @@ body {
 }
 
 .auth-btn:hover {
-    background: #00b32d;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    background: #3BB33B;
+    box-shadow: 0 0 20px rgba(92, 255, 92, 0.5);
 }
 
 .auth-switch {
@@ -98,14 +98,14 @@ body {
 }
 
 .auth-switch a {
-    color: #00ff41;
+    color: #5CFF5C;
     text-decoration: none;
     font-weight: bold;
 }
 
 .auth-switch a:hover {
     text-decoration: underline;
-    text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .auth-error {
@@ -124,13 +124,13 @@ body {
     gap: 15px;
     padding: 15px 20px;
     background: #1a1a1a;
-    border: 1px solid #00ff4120;
+    border: 1px solid #5CFF5C20;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .user-email {
-    color: #00ff41;
+    color: #5CFF5C;
     font-size: 14px;
 }
 
@@ -168,7 +168,7 @@ body {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid #00ff4120;
+    border: 1px solid #5CFF5C20;
     overflow-y: auto;
 }
 
@@ -178,17 +178,17 @@ body {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid #00ff4120;
+    border: 1px solid #5CFF5C20;
     display: flex;
     flex-direction: column;
 }
 
 h1 {
     text-align: center;
-    color: #00ff41;
+    color: #5CFF5C;
     margin-bottom: 25px;
     font-size: 2em;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .input-section {
@@ -210,8 +210,8 @@ h1 {
 
 #taskInput:focus {
     outline: none;
-    border-color: #00ff41;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    border-color: #5CFF5C;
+    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
 }
 
 #taskInput::placeholder {
@@ -220,7 +220,7 @@ h1 {
 
 #addButton {
     padding: 12px;
-    background: #00ff41;
+    background: #5CFF5C;
     color: #0a0a0a;
     border: none;
     border-radius: 8px;
@@ -231,8 +231,8 @@ h1 {
 }
 
 #addButton:hover {
-    background: #00b32d;
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+    background: #3BB33B;
+    box-shadow: 0 0 15px rgba(92, 255, 92, 0.5);
 }
 
 #taskList {
@@ -253,8 +253,8 @@ h1 {
 
 .task-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.2);
-    border-color: #00ff4150;
+    box-shadow: 0 4px 12px rgba(92, 255, 92, 0.2);
+    border-color: #5CFF5C50;
 }
 
 .task-item.important {
@@ -312,12 +312,12 @@ h1 {
 
 .calendar-header h2 {
     font-size: 2em;
-    color: #00ff41;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    color: #5CFF5C;
+    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .nav-btn {
-    background: #00ff41;
+    background: #5CFF5C;
     color: #0a0a0a;
     border: none;
     border-radius: 8px;
@@ -329,8 +329,8 @@ h1 {
 }
 
 .nav-btn:hover {
-    background: #00b32d;
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+    background: #3BB33B;
+    box-shadow: 0 0 15px rgba(92, 255, 92, 0.5);
 }
 
 .calendar-grid {
@@ -355,8 +355,8 @@ h1 {
 .calendar-day:hover {
     background: #1a1a1a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.2);
-    border-color: #00ff4150;
+    box-shadow: 0 4px 12px rgba(92, 255, 92, 0.2);
+    border-color: #5CFF5C50;
 }
 
 .calendar-day.other-month {
@@ -365,17 +365,17 @@ h1 {
 }
 
 .calendar-day.today {
-    background: #00ff41;
+    background: #5CFF5C;
     color: #0a0a0a;
-    border-color: #00ff41;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+    border-color: #5CFF5C;
+    box-shadow: 0 0 20px rgba(92, 255, 92, 0.4);
 }
 
 .day-number {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 8px;
-    color: #00ff41;
+    color: #5CFF5C;
 }
 
 .calendar-day.today .day-number {
@@ -401,7 +401,7 @@ h1 {
     font-weight: bold;
     text-align: center;
     padding: 15px;
-    background: #00ff41;
+    background: #5CFF5C;
     color: #0a0a0a;
     border-radius: 8px;
     font-size: 16px;
@@ -431,8 +431,8 @@ h1 {
     border-radius: 15px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 10px 40px rgba(0, 255, 65, 0.3);
-    border: 1px solid #00ff4120;
+    box-shadow: 0 10px 40px rgba(92, 255, 92, 0.3);
+    border: 1px solid #5CFF5C20;
 }
 
 .modal-header {
@@ -443,9 +443,9 @@ h1 {
 }
 
 .modal-header h3 {
-    color: #00ff41;
+    color: #5CFF5C;
     font-size: 1.5em;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .close {
@@ -457,8 +457,8 @@ h1 {
 }
 
 .close:hover {
-    color: #00ff41;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    color: #5CFF5C;
+    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 #noteText {
@@ -477,8 +477,8 @@ h1 {
 
 #noteText:focus {
     outline: none;
-    border-color: #00ff41;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    border-color: #5CFF5C;
+    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
 }
 
 #noteText::placeholder {
@@ -488,7 +488,7 @@ h1 {
 .save-btn {
     width: 100%;
     padding: 15px;
-    background: #00ff41;
+    background: #5CFF5C;
     color: #0a0a0a;
     border: none;
     border-radius: 8px;
@@ -499,8 +499,8 @@ h1 {
 }
 
 .save-btn:hover {
-    background: #00b32d;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    background: #3BB33B;
+    box-shadow: 0 0 20px rgba(92, 255, 92, 0.5);
 }
 
 /* Mobile-friendly responsive design */
