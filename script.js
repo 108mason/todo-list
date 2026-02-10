@@ -4,6 +4,8 @@ let currentYear = new Date().getFullYear();
 let selectedDate = null;
 let calendarNotes = {};
 let currentUser = null;
+let currentTaskType = 'life'; // 'life' or 'work'
+let tasksUnsubscribe = null; // To unsubscribe from previous listener
 
 // Wait for Firebase to be initialized
 window.addEventListener('DOMContentLoaded', () => {
@@ -159,28 +161,12 @@ function getAuthErrorMessage(code) {
 }
 
 function initializeApp() {
-    const { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, setDoc, getDoc } = window.firestoreFunctions;
+    const { collection, setDoc, getDoc } = window.firestoreFunctions;
     const db = window.db;
-    const tasksCollection = collection(db, 'tasks');
     const notesCollection = collection(db, 'calendarNotes');
 
-    // Set up real-time listener for tasks
-    const q = query(tasksCollection, orderBy('createdAt', 'desc'));
-    onSnapshot(q, (snapshot) => {
-        const tasks = [];
-        snapshot.forEach((doc) => {
-            tasks.push({
-                id: doc.id,
-                ...doc.data()
-            });
-        });
-        renderTasks(tasks);
-    }, (error) => {
-        console.error('Error listening to tasks:', error);
-        alert('Error loading tasks. Please refresh the page.');
-    });
-
     // Set up real-time listener for calendar notes
+    const { onSnapshot } = window.firestoreFunctions;
     onSnapshot(notesCollection, (snapshot) => {
         calendarNotes = {};
         snapshot.forEach((doc) => {
@@ -191,18 +177,8 @@ function initializeApp() {
         console.error('Error listening to calendar notes:', error);
     });
 
-    // Add task event listeners
-    document.getElementById('addButton').addEventListener('click', () => addTask(tasksCollection, addDoc));
-    document.getElementById('taskInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            addTask(tasksCollection, addDoc);
-        }
-    });
-
     // Store Firestore functions globally for use in other functions
-    window.deleteTaskFromFirestore = (taskId) => deleteTask(db, taskId, deleteDoc, doc);
-    window.toggleImportantInFirestore = (taskId, currentValue) => toggleImportant(db, taskId, currentValue, updateDoc, doc);
-    window.saveCalendarNote = (dateKey, note) => saveNote(db, dateKey, note, setDoc, doc);
+    window.saveCalendarNote = (dateKey, note) => saveNote(db, dateKey, note, setDoc, getDoc);
 
     // Initialize calendar
     renderCalendar();
@@ -248,6 +224,81 @@ function initializeApp() {
             modal.classList.remove('show');
         }
     };
+
+    // Task toggle buttons
+    document.getElementById('lifeBtn').addEventListener('click', () => switchTaskType('life'));
+    document.getElementById('workBtn').addEventListener('click', () => switchTaskType('work'));
+
+    // Load initial task view (Life)
+    loadTaskView();
+}
+
+function switchTaskType(type) {
+    currentTaskType = type;
+
+    // Update button states
+    document.getElementById('lifeBtn').classList.toggle('active', type === 'life');
+    document.getElementById('workBtn').classList.toggle('active', type === 'work');
+
+    // Update title
+    const title = type === 'life' ? 'Life Tasks' : 'Work Tasks';
+    document.querySelector('.task-section h1').textContent = title;
+
+    // Reload tasks
+    loadTaskView();
+}
+
+function loadTaskView() {
+    const { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy } = window.firestoreFunctions;
+    const db = window.db;
+
+    // Unsubscribe from previous listener if exists
+    if (tasksUnsubscribe) {
+        tasksUnsubscribe();
+    }
+
+    // Determine collection name based on current type
+    const collectionName = currentTaskType === 'life' ? 'lifeTasks' : 'workTasks';
+    const tasksCollection = collection(db, collectionName);
+
+    // Set up real-time listener for current task type
+    const q = query(tasksCollection, orderBy('createdAt', 'desc'));
+    tasksUnsubscribe = onSnapshot(q, (snapshot) => {
+        const tasks = [];
+        snapshot.forEach((doc) => {
+            tasks.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+        renderTasks(tasks);
+    }, (error) => {
+        console.error('Error listening to tasks:', error);
+        alert('Error loading tasks. Please refresh the page.');
+    });
+
+    // Update task event listeners
+    const addButton = document.getElementById('addButton');
+    const taskInput = document.getElementById('taskInput');
+
+    // Remove old listeners by cloning elements
+    const newAddButton = addButton.cloneNode(true);
+    addButton.parentNode.replaceChild(newAddButton, addButton);
+
+    const newTaskInput = taskInput.cloneNode(true);
+    taskInput.parentNode.replaceChild(newTaskInput, taskInput);
+
+    // Add new listeners
+    document.getElementById('addButton').addEventListener('click', () => addTask(tasksCollection, addDoc));
+    document.getElementById('taskInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTask(tasksCollection, addDoc);
+        }
+    });
+
+    // Store current collection functions globally
+    window.deleteTaskFromFirestore = (taskId) => deleteTask(db, collectionName, taskId, deleteDoc, doc);
+    window.toggleImportantInFirestore = (taskId, currentValue) => toggleImportant(db, collectionName, taskId, currentValue, updateDoc, doc);
 }
 
 // Task functions
@@ -274,18 +325,18 @@ async function addTask(tasksCollection, addDoc) {
     }
 }
 
-async function deleteTask(db, taskId, deleteDoc, doc) {
+async function deleteTask(db, collectionName, taskId, deleteDoc, doc) {
     try {
-        await deleteDoc(doc(db, 'tasks', taskId));
+        await deleteDoc(doc(db, collectionName, taskId));
     } catch (error) {
         console.error('Error deleting task:', error);
         alert('Error deleting task. Please try again.');
     }
 }
 
-async function toggleImportant(db, taskId, currentValue, updateDoc, doc) {
+async function toggleImportant(db, collectionName, taskId, currentValue, updateDoc, doc) {
     try {
-        await updateDoc(doc(db, 'tasks', taskId), {
+        await updateDoc(doc(db, collectionName, taskId), {
             important: !currentValue
         });
     } catch (error) {
@@ -416,11 +467,11 @@ function formatDate(dateKey) {
     return date.toLocaleDateString('en-US', options);
 }
 
-async function saveNote(db, dateKey, note, setDoc, doc) {
+async function saveNote(db, dateKey, note, setDoc, getDoc) {
+    const { deleteDoc, doc } = window.firestoreFunctions;
     try {
         if (note.trim() === '') {
             // Delete note if empty
-            const { deleteDoc } = window.firestoreFunctions;
             await deleteDoc(doc(db, 'calendarNotes', dateKey));
         } else {
             // Save or update note

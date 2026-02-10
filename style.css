@@ -119,14 +119,48 @@ body {
 /* User Bar */
 .user-bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
     padding: 15px 20px;
     background: #1a1a1a;
     border: 1px solid #5CFF5C20;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+
+.task-toggle {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-btn {
+    padding: 8px 20px;
+    background: #0a0a0a;
+    color: #a0a0a0;
+    border: 1px solid #333;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.toggle-btn:hover {
+    border-color: #5CFF5C50;
+    color: #5CFF5C;
+}
+
+.toggle-btn.active {
+    background: #5CFF5C;
+    color: #0a0a0a;
+    border-color: #5CFF5C;
+    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .user-email {
@@ -528,8 +562,26 @@ h1 {
 
     .user-bar {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         padding: 15px;
+    }
+
+    .task-toggle {
+        width: 100%;
+    }
+
+    .toggle-btn {
+        flex: 1;
+    }
+
+    .user-info {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .logout-btn {
+        width: 100%;
     }
 
     .task-section {
