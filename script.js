@@ -3,17 +3,160 @@ let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 let selectedDate = null;
 let calendarNotes = {};
+let currentUser = null;
 
 // Wait for Firebase to be initialized
 window.addEventListener('DOMContentLoaded', () => {
-    // Wait for Firebase to be ready
     const checkFirebase = setInterval(() => {
-        if (window.db && window.firestoreFunctions) {
+        if (window.db && window.auth && window.firestoreFunctions && window.authFunctions) {
             clearInterval(checkFirebase);
-            initializeApp();
+            initializeAuth();
         }
     }, 100);
 });
+
+function initializeAuth() {
+    const { onAuthStateChanged } = window.authFunctions;
+    const auth = window.auth;
+
+    // Set up authentication state listener
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            currentUser = user;
+            showApp();
+            document.getElementById('userEmail').textContent = user.email;
+            initializeApp();
+        } else {
+            // User is signed out
+            currentUser = null;
+            showAuth();
+        }
+    });
+
+    // Set up auth UI event listeners
+    setupAuthListeners();
+}
+
+function setupAuthListeners() {
+    const { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } = window.authFunctions;
+    const auth = window.auth;
+
+    // Show/hide forms
+    document.getElementById('showSignup').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'block';
+        document.getElementById('authError').textContent = '';
+    });
+
+    document.getElementById('showLogin').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('signupForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('authError').textContent = '';
+    });
+
+    // Login
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!email || !password) {
+            showAuthError('Please enter email and password');
+            return;
+        }
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // Success handled by onAuthStateChanged
+        } catch (error) {
+            showAuthError(getAuthErrorMessage(error.code));
+        }
+    });
+
+    // Signup
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+
+        if (!email || !password) {
+            showAuthError('Please enter email and password');
+            return;
+        }
+
+        if (password.length < 6) {
+            showAuthError('Password must be at least 6 characters');
+            return;
+        }
+
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            // Success handled by onAuthStateChanged
+        } catch (error) {
+            showAuthError(getAuthErrorMessage(error.code));
+        }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            // Success handled by onAuthStateChanged
+        } catch (error) {
+            console.error('Error signing out:', error);
+            alert('Error signing out. Please try again.');
+        }
+    });
+
+    // Enter key support
+    document.getElementById('loginPassword').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            document.getElementById('loginBtn').click();
+        }
+    });
+
+    document.getElementById('signupPassword').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            document.getElementById('signupBtn').click();
+        }
+    });
+}
+
+function showAuth() {
+    document.getElementById('authContainer').style.display = 'flex';
+    document.getElementById('appContainer').style.display = 'none';
+}
+
+function showApp() {
+    document.getElementById('authContainer').style.display = 'none';
+    document.getElementById('appContainer').style.display = 'block';
+}
+
+function showAuthError(message) {
+    document.getElementById('authError').textContent = message;
+}
+
+function getAuthErrorMessage(code) {
+    switch (code) {
+        case 'auth/invalid-email':
+            return 'Invalid email address';
+        case 'auth/user-disabled':
+            return 'This account has been disabled';
+        case 'auth/user-not-found':
+            return 'No account found with this email';
+        case 'auth/wrong-password':
+            return 'Incorrect password';
+        case 'auth/email-already-in-use':
+            return 'Email already in use';
+        case 'auth/weak-password':
+            return 'Password is too weak';
+        case 'auth/network-request-failed':
+            return 'Network error. Please check your connection';
+        default:
+            return 'Authentication error. Please try again';
+    }
+}
 
 function initializeApp() {
     const { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, setDoc, getDoc } = window.firestoreFunctions;

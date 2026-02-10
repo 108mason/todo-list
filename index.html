@@ -7,28 +7,63 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Left Section: Task Manager -->
-        <div class="task-section">
-            <h1>Tasks</h1>
+    <!-- Login/Signup Screen -->
+    <div id="authContainer" class="auth-container">
+        <div class="auth-box">
+            <h1>Task Manager & Calendar</h1>
+            <p class="auth-subtitle">Sign in to access your tasks and calendar</p>
 
-            <div class="input-section">
-                <input type="text" id="taskInput" placeholder="Enter a new task..." />
-                <button id="addButton">Add Task</button>
+            <div id="loginForm" class="auth-form">
+                <h2>Login</h2>
+                <input type="email" id="loginEmail" placeholder="Email" />
+                <input type="password" id="loginPassword" placeholder="Password" />
+                <button id="loginBtn" class="auth-btn">Login</button>
+                <p class="auth-switch">Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
             </div>
 
-            <ul id="taskList"></ul>
+            <div id="signupForm" class="auth-form" style="display: none;">
+                <h2>Sign Up</h2>
+                <input type="email" id="signupEmail" placeholder="Email" />
+                <input type="password" id="signupPassword" placeholder="Password (min 6 characters)" />
+                <button id="signupBtn" class="auth-btn">Create Account</button>
+                <p class="auth-switch">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </div>
+
+            <div id="authError" class="auth-error"></div>
+        </div>
+    </div>
+
+    <!-- Main App (hidden until authenticated) -->
+    <div id="appContainer" class="app-container" style="display: none;">
+        <!-- User Info Bar -->
+        <div class="user-bar">
+            <span id="userEmail" class="user-email"></span>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
         </div>
 
-        <!-- Right Section: Calendar -->
-        <div class="calendar-section">
-            <div class="calendar-header">
-                <button id="prevMonth" class="nav-btn">&larr;</button>
-                <h2 id="currentMonth"></h2>
-                <button id="nextMonth" class="nav-btn">&rarr;</button>
+        <div class="app-content">
+            <!-- Left Section: Task Manager -->
+            <div class="task-section">
+                <h1>Tasks</h1>
+
+                <div class="input-section">
+                    <input type="text" id="taskInput" placeholder="Enter a new task..." />
+                    <button id="addButton">Add Task</button>
+                </div>
+
+                <ul id="taskList"></ul>
             </div>
 
-            <div class="calendar-grid" id="calendarGrid"></div>
+            <!-- Right Section: Calendar -->
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <button id="prevMonth" class="nav-btn">&larr;</button>
+                    <h2 id="currentMonth"></h2>
+                    <button id="nextMonth" class="nav-btn">&rarr;</button>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
         </div>
     </div>
 
@@ -48,6 +83,7 @@
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
         import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -62,10 +98,13 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        // Make db and Firestore functions available globally
+        // Make Firebase services available globally
         window.db = db;
+        window.auth = auth;
         window.firestoreFunctions = { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc };
+        window.authFunctions = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged };
     </script>
     <script src="script.js"></script>
 </body>
