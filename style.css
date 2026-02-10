@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a3a1a 100%);
+    background: #15202B;
     min-height: 100vh;
     padding: 20px;
 }
@@ -17,12 +17,11 @@ body {
     font-weight: 900;
     font-size: 3em;
     letter-spacing: 8px;
-    color: #5CFF5C;
+    color: #1D9BF0;
     text-shadow:
-        0 0 10px rgba(92, 255, 92, 0.8),
-        0 0 20px rgba(92, 255, 92, 0.6),
-        0 0 30px rgba(92, 255, 92, 0.4),
-        0 0 40px rgba(92, 255, 92, 0.2);
+        0 0 10px rgba(29, 155, 240, 0.6),
+        0 0 20px rgba(29, 155, 240, 0.4),
+        0 0 30px rgba(29, 155, 240, 0.2);
     text-align: center;
     margin-bottom: 20px;
     animation: glow 2s ease-in-out infinite alternate;
@@ -31,16 +30,15 @@ body {
 @keyframes glow {
     from {
         text-shadow:
-            0 0 10px rgba(92, 255, 92, 0.8),
-            0 0 20px rgba(92, 255, 92, 0.6),
-            0 0 30px rgba(92, 255, 92, 0.4);
+            0 0 10px rgba(29, 155, 240, 0.6),
+            0 0 20px rgba(29, 155, 240, 0.4),
+            0 0 30px rgba(29, 155, 240, 0.2);
     }
     to {
         text-shadow:
-            0 0 15px rgba(92, 255, 92, 1),
-            0 0 25px rgba(92, 255, 92, 0.8),
-            0 0 35px rgba(92, 255, 92, 0.6),
-            0 0 45px rgba(92, 255, 92, 0.4);
+            0 0 15px rgba(29, 155, 240, 0.8),
+            0 0 25px rgba(29, 155, 240, 0.6),
+            0 0 35px rgba(29, 155, 240, 0.4);
     }
 }
 
@@ -63,11 +61,11 @@ body {
 }
 
 .auth-box {
-    background: #1a1a1a;
+    background: #192734;
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(92, 255, 92, 0.2);
-    border: 1px solid #5CFF5C20;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid #38444D;
     width: 100%;
     max-width: 450px;
 }
@@ -75,8 +73,8 @@ body {
 .auth-box h1 {
     font-size: 2em;
     margin-bottom: 10px;
-    color: #5CFF5C;
-    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
+    color: #1D9BF0;
+    text-shadow: 0 0 3px rgba(29, 155, 240, 0.3);
 }
 
 .auth-box .brand-name {
@@ -93,7 +91,7 @@ body {
 
 .auth-form h2 {
     font-size: 1.5em;
-    color: #5CFF5C;
+    color: #1D9BF0;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -102,31 +100,31 @@ body {
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
-    background: #0a0a0a;
-    border: 2px solid #333;
+    background: #15202B;
+    border: 2px solid #38444D;
     border-radius: 8px;
     font-size: 16px;
-    color: #e0e0e0;
+    color: #E7E9EA;
     transition: border-color 0.3s;
 }
 
 .auth-form input:focus {
     outline: none;
-    border-color: #5CFF5C;
-    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
+    border-color: #1D9BF0;
+    box-shadow: 0 0 10px rgba(29, 155, 240, 0.3);
 }
 
 .auth-form input::placeholder {
-    color: #666;
+    color: #6E767D;
 }
 
 .auth-btn {
     width: 100%;
     padding: 15px;
-    background: #5CFF5C;
-    color: #0a0a0a;
+    background: #1D9BF0;
+    color: #FFFFFF;
     border: none;
-    border-radius: 8px;
+    border-radius: 9999px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -135,25 +133,24 @@ body {
 }
 
 .auth-btn:hover {
-    background: #3BB33B;
-    box-shadow: 0 0 20px rgba(92, 255, 92, 0.5);
+    background: #1A8CD8;
+    box-shadow: 0 0 20px rgba(29, 155, 240, 0.4);
 }
 
 .auth-switch {
     text-align: center;
-    color: #a0a0a0;
+    color: #71767B;
     font-size: 14px;
 }
 
 .auth-switch a {
-    color: #5CFF5C;
+    color: #1D9BF0;
     text-decoration: none;
     font-weight: bold;
 }
 
 .auth-switch a:hover {
     text-decoration: underline;
-    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .auth-error {
@@ -170,8 +167,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background: #1a1a1a;
-    border: 1px solid #5CFF5C20;
+    background: #192734;
+    border: 1px solid #38444D;
     border-radius: 10px;
     margin-bottom: 20px;
 }
@@ -179,18 +176,18 @@ body {
 .task-toggle {
     display: flex;
     gap: 12px;
-    background: #0a0a0a;
+    background: #15202B;
     padding: 5px;
-    border-radius: 10px;
-    border: 1px solid #333;
+    border-radius: 9999px;
+    border: 1px solid #38444D;
 }
 
 .toggle-btn {
     padding: 10px 24px;
     background: transparent;
-    color: #666;
+    color: #71767B;
     border: none;
-    border-radius: 8px;
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
@@ -200,16 +197,14 @@ body {
 }
 
 .toggle-btn:hover {
-    color: #5CFF5C;
-    background: rgba(92, 255, 92, 0.1);
+    color: #1D9BF0;
+    background: rgba(29, 155, 240, 0.1);
 }
 
 .toggle-btn.active {
-    background: #5CFF5C;
-    color: #0a0a0a;
-    box-shadow:
-        0 0 15px rgba(92, 255, 92, 0.5),
-        inset 0 0 10px rgba(92, 255, 92, 0.3);
+    background: #1D9BF0;
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(29, 155, 240, 0.4);
     transform: scale(1.05);
 }
 
@@ -220,24 +215,26 @@ body {
 }
 
 .user-email {
-    color: #5CFF5C;
+    color: #1D9BF0;
     font-size: 14px;
 }
 
 .logout-btn {
     padding: 8px 20px;
-    background: #ff4444;
-    color: white;
-    border: none;
-    border-radius: 6px;
+    background: transparent;
+    color: #E7E9EA;
+    border: 1px solid #38444D;
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
     transition: all 0.3s;
 }
 
 .logout-btn:hover {
-    background: #cc0000;
-    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
+    background: rgba(244, 33, 46, 0.1);
+    color: #F4212E;
+    border-color: #F4212E;
 }
 
 /* Desktop Layout - 3 sections */
@@ -254,31 +251,30 @@ body {
 
 .task-section {
     flex: 0 0 33.333%;
-    background: #1a1a1a;
+    background: #192734;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid #5CFF5C20;
+    border: 1px solid #38444D;
     overflow-y: auto;
 }
 
 .calendar-section {
     flex: 0 0 66.666%;
-    background: #1a1a1a;
+    background: #192734;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid #5CFF5C20;
+    border: 1px solid #38444D;
     display: flex;
     flex-direction: column;
 }
 
 h1 {
     text-align: center;
-    color: #5CFF5C;
+    color: #E7E9EA;
     margin-bottom: 25px;
     font-size: 2em;
-    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .input-section {
@@ -290,30 +286,30 @@ h1 {
 
 #taskInput {
     padding: 12px 15px;
-    background: #0a0a0a;
-    border: 2px solid #333;
-    border-radius: 8px;
+    background: #15202B;
+    border: 2px solid #38444D;
+    border-radius: 9999px;
     font-size: 16px;
-    color: #e0e0e0;
+    color: #E7E9EA;
     transition: border-color 0.3s;
 }
 
 #taskInput:focus {
     outline: none;
-    border-color: #5CFF5C;
-    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
+    border-color: #1D9BF0;
+    box-shadow: 0 0 10px rgba(29, 155, 240, 0.2);
 }
 
 #taskInput::placeholder {
-    color: #666;
+    color: #6E767D;
 }
 
 #addButton {
     padding: 12px;
-    background: #5CFF5C;
-    color: #0a0a0a;
+    background: #1D9BF0;
+    color: #FFFFFF;
     border: none;
-    border-radius: 8px;
+    border-radius: 9999px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -321,8 +317,8 @@ h1 {
 }
 
 #addButton:hover {
-    background: #3BB33B;
-    box-shadow: 0 0 15px rgba(92, 255, 92, 0.5);
+    background: #1A8CD8;
+    box-shadow: 0 0 15px rgba(29, 155, 240, 0.4);
 }
 
 #taskList {
@@ -330,11 +326,11 @@ h1 {
 }
 
 .task-item {
-    background: #0a0a0a;
+    background: #15202B;
     padding: 12px;
     margin-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid #333;
+    border-radius: 12px;
+    border: 1px solid #38444D;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -342,52 +338,52 @@ h1 {
 }
 
 .task-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(92, 255, 92, 0.2);
-    border-color: #5CFF5C50;
+    border-color: #1D9BF0;
+    background: rgba(29, 155, 240, 0.05);
 }
 
 .task-item.important {
-    background: #2a0a0a;
-    border-left: 4px solid #ff4444;
-    box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
+    background: rgba(244, 33, 46, 0.1);
+    border-left: 4px solid #F4212E;
 }
 
 .flag-checkbox {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #ff4444;
+    accent-color: #F4212E;
     flex-shrink: 0;
 }
 
 .task-text {
     flex: 1;
     font-size: 15px;
-    color: #e0e0e0;
+    color: #E7E9EA;
     word-break: break-word;
 }
 
 .delete-btn {
     padding: 6px 12px;
-    background: #ff4444;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    background: transparent;
+    color: #71767B;
+    border: 1px solid #38444D;
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 13px;
+    font-weight: bold;
     transition: all 0.3s;
     white-space: nowrap;
 }
 
 .delete-btn:hover {
-    background: #cc0000;
-    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+    background: rgba(244, 33, 46, 0.1);
+    color: #F4212E;
+    border-color: #F4212E;
 }
 
 .empty-state {
     text-align: center;
-    color: #666;
+    color: #71767B;
     padding: 30px 15px;
     font-size: 16px;
 }
@@ -402,15 +398,14 @@ h1 {
 
 .calendar-header h2 {
     font-size: 2em;
-    color: #5CFF5C;
-    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
+    color: #E7E9EA;
 }
 
 .nav-btn {
-    background: #5CFF5C;
-    color: #0a0a0a;
+    background: #1D9BF0;
+    color: #FFFFFF;
     border: none;
-    border-radius: 8px;
+    border-radius: 9999px;
     padding: 12px 20px;
     font-size: 18px;
     font-weight: bold;
@@ -419,8 +414,8 @@ h1 {
 }
 
 .nav-btn:hover {
-    background: #3BB33B;
-    box-shadow: 0 0 15px rgba(92, 255, 92, 0.5);
+    background: #1A8CD8;
+    box-shadow: 0 0 15px rgba(29, 155, 240, 0.4);
 }
 
 .calendar-grid {
@@ -431,9 +426,9 @@ h1 {
 }
 
 .calendar-day {
-    background: #0a0a0a;
-    border: 1px solid #333;
-    border-radius: 8px;
+    background: #15202B;
+    border: 1px solid #38444D;
+    border-radius: 12px;
     padding: 15px;
     cursor: pointer;
     transition: all 0.2s;
@@ -443,10 +438,8 @@ h1 {
 }
 
 .calendar-day:hover {
-    background: #1a1a1a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(92, 255, 92, 0.2);
-    border-color: #5CFF5C50;
+    background: rgba(29, 155, 240, 0.05);
+    border-color: #1D9BF0;
 }
 
 .calendar-day.other-month {
@@ -455,26 +448,26 @@ h1 {
 }
 
 .calendar-day.today {
-    background: #5CFF5C;
-    color: #0a0a0a;
-    border-color: #5CFF5C;
-    box-shadow: 0 0 20px rgba(92, 255, 92, 0.4);
+    background: #1D9BF0;
+    color: #FFFFFF;
+    border-color: #1D9BF0;
+    box-shadow: 0 0 20px rgba(29, 155, 240, 0.4);
 }
 
 .day-number {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 8px;
-    color: #5CFF5C;
+    color: #E7E9EA;
 }
 
 .calendar-day.today .day-number {
-    color: #0a0a0a;
+    color: #FFFFFF;
 }
 
 .day-note {
     font-size: 13px;
-    color: #a0a0a0;
+    color: #71767B;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -484,15 +477,15 @@ h1 {
 }
 
 .calendar-day.today .day-note {
-    color: #0a0a0a;
+    color: #FFFFFF;
 }
 
 .day-header {
     font-weight: bold;
     text-align: center;
     padding: 15px;
-    background: #5CFF5C;
-    color: #0a0a0a;
+    background: transparent;
+    color: #71767B;
     border-radius: 8px;
     font-size: 16px;
 }
@@ -506,7 +499,7 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal.show {
@@ -516,13 +509,13 @@ h1 {
 }
 
 .modal-content {
-    background: #1a1a1a;
+    background: #192734;
     padding: 30px;
     border-radius: 15px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 10px 40px rgba(92, 255, 92, 0.3);
-    border: 1px solid #5CFF5C20;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid #38444D;
 }
 
 .modal-header {
@@ -533,55 +526,53 @@ h1 {
 }
 
 .modal-header h3 {
-    color: #5CFF5C;
+    color: #E7E9EA;
     font-size: 1.5em;
-    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
 .close {
     font-size: 32px;
     font-weight: bold;
-    color: #666;
+    color: #71767B;
     cursor: pointer;
     transition: all 0.3s;
 }
 
 .close:hover {
-    color: #5CFF5C;
-    text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
+    color: #1D9BF0;
 }
 
 #noteText {
     width: 100%;
     min-height: 200px;
     padding: 15px;
-    background: #0a0a0a;
-    border: 2px solid #333;
-    border-radius: 8px;
+    background: #15202B;
+    border: 2px solid #38444D;
+    border-radius: 12px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
-    color: #e0e0e0;
+    color: #E7E9EA;
     resize: vertical;
     margin-bottom: 15px;
 }
 
 #noteText:focus {
     outline: none;
-    border-color: #5CFF5C;
-    box-shadow: 0 0 10px rgba(92, 255, 92, 0.3);
+    border-color: #1D9BF0;
+    box-shadow: 0 0 10px rgba(29, 155, 240, 0.2);
 }
 
 #noteText::placeholder {
-    color: #666;
+    color: #6E767D;
 }
 
 .save-btn {
     width: 100%;
     padding: 15px;
-    background: #5CFF5C;
-    color: #0a0a0a;
+    background: #1D9BF0;
+    color: #FFFFFF;
     border: none;
-    border-radius: 8px;
+    border-radius: 9999px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -589,8 +580,8 @@ h1 {
 }
 
 .save-btn:hover {
-    background: #3BB33B;
-    box-shadow: 0 0 20px rgba(92, 255, 92, 0.5);
+    background: #1A8CD8;
+    box-shadow: 0 0 20px rgba(29, 155, 240, 0.4);
 }
 
 /* Mobile-friendly responsive design */
