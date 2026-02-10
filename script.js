@@ -316,16 +316,64 @@ async function addTask(tasksCollection, addDoc) {
     }
 
     try {
+        // Parse date from task text (format: DD.MM.YYYY)
+        const dateRegex = /\b(\d{2})\.(\d{2})\.(\d{4})\b/;
+        const dateMatch = taskText.match(dateRegex);
+
+        let taskDate = null;
+        let taskTextWithoutDate = taskText;
+
+        if (dateMatch) {
+            const day = dateMatch[1];
+            const month = dateMatch[2];
+            const year = dateMatch[3];
+            taskDate = `${year}-${month}-${day}`; // Store as YYYY-MM-DD
+
+            // Remove date from task text
+            taskTextWithoutDate = taskText.replace(dateRegex, '').trim();
+
+            // Update calendar note with this task
+            await updateCalendarWithTask(taskDate, taskTextWithoutDate);
+        }
+
         await addDoc(tasksCollection, {
             text: taskText,
             important: false,
-            createdAt: new Date()
+            createdAt: new Date(),
+            dueDate: taskDate
         });
         taskInput.value = '';
         taskInput.focus();
     } catch (error) {
         console.error('Error adding task:', error);
         alert('Error adding task. Please try again.');
+    }
+}
+
+async function updateCalendarWithTask(dateKey, taskText) {
+    const { setDoc, getDoc, doc } = window.firestoreFunctions;
+    const db = window.db;
+
+    try {
+        const noteDocRef = doc(db, 'calendarNotes', dateKey);
+        const noteDoc = await getDoc(noteDocRef);
+
+        let existingNote = '';
+        if (noteDoc.exists()) {
+            existingNote = noteDoc.data().note || '';
+        }
+
+        // Append task to existing note (one per line)
+        const updatedNote = existingNote
+            ? `${existingNote}\n• ${taskText}`
+            : `• ${taskText}`;
+
+        await setDoc(noteDocRef, {
+            note: updatedNote,
+            updatedAt: new Date()
+        });
+    } catch (error) {
+        console.error('Error updating calendar:', error);
     }
 }
 
@@ -369,9 +417,22 @@ function renderTasks(tasks) {
         checkbox.title = 'Mark as important';
         checkbox.addEventListener('change', () => window.toggleImportantInFirestore(task.id, task.important));
 
+        const taskContent = document.createElement('div');
+        taskContent.className = 'task-content';
+
         const taskText = document.createElement('span');
         taskText.className = 'task-text';
         taskText.textContent = task.text;
+
+        // Add date badge if task has a due date
+        if (task.dueDate) {
+            const dateBadge = document.createElement('span');
+            dateBadge.className = 'task-date-badge';
+            dateBadge.innerHTML = `📅 ${formatDateForDisplay(task.dueDate)}`;
+            taskContent.appendChild(dateBadge);
+        }
+
+        taskContent.appendChild(taskText);
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
@@ -379,10 +440,19 @@ function renderTasks(tasks) {
         deleteBtn.addEventListener('click', () => window.deleteTaskFromFirestore(task.id));
 
         li.appendChild(checkbox);
-        li.appendChild(taskText);
+        li.appendChild(taskContent);
         li.appendChild(deleteBtn);
         taskList.appendChild(li);
     });
+}
+
+function formatDateForDisplay(dateString) {
+    // Convert YYYY-MM-DD to DD.MM.YYYY
+    const parts = dateString.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    }
+    return dateString;
 }
 
 // Calendar functions
