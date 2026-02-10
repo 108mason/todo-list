@@ -259,6 +259,7 @@ function loadTaskView() {
     // Store current collection functions globally
     window.deleteTaskFromFirestore = (taskId) => deleteTask(db, collectionName, taskId, deleteDoc, doc);
     window.toggleImportantInFirestore = (taskId, currentValue) => toggleImportant(db, collectionName, taskId, currentValue, updateDoc, doc);
+    window.editTaskInFirestore = (taskId, currentText, currentDate) => editTask(db, collectionName, taskId, currentText, currentDate, updateDoc, doc);
 }
 
 // Task functions
@@ -353,6 +354,54 @@ async function toggleImportant(db, collectionName, taskId, currentValue, updateD
     }
 }
 
+async function editTask(db, collectionName, taskId, currentText, currentDate, updateDoc, doc) {
+    // Prompt for new task text
+    const newText = prompt('Edit task:', currentText);
+    if (newText === null || newText.trim() === '') {
+        return; // User cancelled or entered empty text
+    }
+
+    // Prompt for new date (format: DD.MM.YYYY or leave empty)
+    const currentDateFormatted = currentDate ? formatDateForDisplay(currentDate) : '';
+    const newDateInput = prompt('Edit date (DD.MM.YYYY) or leave empty:', currentDateFormatted);
+    if (newDateInput === null) {
+        return; // User cancelled
+    }
+
+    // Parse the new date
+    let newDate = null;
+    if (newDateInput.trim() !== '') {
+        const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+        const dateMatch = newDateInput.trim().match(dateRegex);
+        if (dateMatch) {
+            const day = dateMatch[1];
+            const month = dateMatch[2];
+            const year = dateMatch[3];
+            newDate = `${year}-${month}-${day}`; // Store as YYYY-MM-DD
+        } else {
+            alert('Invalid date format. Please use DD.MM.YYYY');
+            return;
+        }
+    }
+
+    try {
+        // Update the task in Firestore
+        await updateDoc(doc(db, collectionName, taskId), {
+            text: newText.trim(),
+            dueDate: newDate
+        });
+
+        // If date was added or changed, update calendar
+        if (newDate) {
+            const taskTextWithoutDate = newText.replace(/\b(\d{2})\.(\d{2})\.(\d{4})\b/, '').trim();
+            await updateCalendarWithTask(newDate, taskTextWithoutDate);
+        }
+    } catch (error) {
+        console.error('Error editing task:', error);
+        alert('Error editing task. Please try again.');
+    }
+}
+
 function renderTasks(tasks) {
     const taskList = document.getElementById('taskList');
     taskList.innerHTML = '';
@@ -410,14 +459,25 @@ function renderTasks(tasks) {
 
         taskContent.appendChild(taskText);
 
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'task-buttons';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => window.editTaskInFirestore(task.id, task.text, task.dueDate));
+
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
         deleteBtn.textContent = 'Delete';
         deleteBtn.addEventListener('click', () => window.deleteTaskFromFirestore(task.id));
 
+        btnContainer.appendChild(editBtn);
+        btnContainer.appendChild(deleteBtn);
+
         li.appendChild(checkbox);
         li.appendChild(taskContent);
-        li.appendChild(deleteBtn);
+        li.appendChild(btnContainer);
         taskList.appendChild(li);
     });
 }

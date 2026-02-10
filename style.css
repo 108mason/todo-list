@@ -381,6 +381,13 @@ h1 {
     font-weight: 600;
 }
 
+.task-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.edit-btn,
 .delete-btn {
     padding: 6px 12px;
     background: transparent;
@@ -392,6 +399,12 @@ h1 {
     font-weight: bold;
     transition: all 0.3s;
     white-space: nowrap;
+}
+
+.edit-btn:hover {
+    background: rgba(29, 155, 240, 0.1);
+    color: #1D9BF0;
+    border-color: #1D9BF0;
 }
 
 .delete-btn:hover {
