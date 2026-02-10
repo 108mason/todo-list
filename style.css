@@ -11,6 +11,49 @@ body {
     padding: 20px;
 }
 
+/* Brand Name Styling */
+.brand-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 3em;
+    letter-spacing: 8px;
+    color: #5CFF5C;
+    text-shadow:
+        0 0 10px rgba(92, 255, 92, 0.8),
+        0 0 20px rgba(92, 255, 92, 0.6),
+        0 0 30px rgba(92, 255, 92, 0.4),
+        0 0 40px rgba(92, 255, 92, 0.2);
+    text-align: center;
+    margin-bottom: 20px;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+            0 0 10px rgba(92, 255, 92, 0.8),
+            0 0 20px rgba(92, 255, 92, 0.6),
+            0 0 30px rgba(92, 255, 92, 0.4);
+    }
+    to {
+        text-shadow:
+            0 0 15px rgba(92, 255, 92, 1),
+            0 0 25px rgba(92, 255, 92, 0.8),
+            0 0 35px rgba(92, 255, 92, 0.6),
+            0 0 45px rgba(92, 255, 92, 0.4);
+    }
+}
+
+.app-brand {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-brand .brand-name {
+    font-size: 2.5em;
+    margin-bottom: 0;
+}
+
 /* Authentication Styles */
 .auth-container {
     display: flex;
@@ -36,10 +79,15 @@ body {
     text-shadow: 0 0 3px rgba(92, 255, 92, 0.3);
 }
 
+.auth-box .brand-name {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
 .auth-subtitle {
     text-align: center;
     color: #a0a0a0;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     font-size: 14px;
 }
 
@@ -551,6 +599,16 @@ h1 {
         font-size: 1.6em;
     }
 
+    .auth-box .brand-name {
+        font-size: 2em;
+        letter-spacing: 4px;
+    }
+
+    .app-brand .brand-name {
+        font-size: 1.8em;
+        letter-spacing: 4px;
+    }
+
     .app-container {
         height: auto;
     }
@@ -637,6 +695,16 @@ h1 {
 }
 
 @media (max-width: 480px) {
+    .auth-box .brand-name {
+        font-size: 1.5em;
+        letter-spacing: 3px;
+    }
+
+    .app-brand .brand-name {
+        font-size: 1.5em;
+        letter-spacing: 3px;
+    }
+
     h1 {
         font-size: 1.5em;
     }

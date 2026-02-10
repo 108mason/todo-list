@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager & Calendar</title>
+    <title>Keshava - Task Manager & Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Login/Signup Screen -->
     <div id="authContainer" class="auth-container">
         <div class="auth-box">
-            <h1>Task Manager & Calendar</h1>
-            <p class="auth-subtitle">Sign in to access your tasks and calendar</p>
+            <h1 class="brand-name">KESHAVA</h1>
+            <p class="auth-subtitle">Task Manager & Calendar</p>
+            <p class="auth-subtitle" style="margin-top: -15px;">Sign in to access your tasks and calendar</p>
 
             <div id="loginForm" class="auth-form">
                 <h2>Login</h2>
@@ -35,6 +39,11 @@
 
     <!-- Main App (hidden until authenticated) -->
     <div id="appContainer" class="app-container" style="display: none;">
+        <!-- Brand Header -->
+        <div class="app-brand">
+            <h1 class="brand-name">KESHAVA</h1>
+        </div>
+
         <!-- User Info Bar -->
         <div class="user-bar">
             <div class="task-toggle">
