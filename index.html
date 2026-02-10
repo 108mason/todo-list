@@ -18,6 +18,29 @@
         <ul id="taskList"></ul>
     </div>
 
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAQ8V3wL1_Au_HF2Jm1rcbdScO8tF4jQI",
+            authDomain: "todo-list-6393b.firebaseapp.com",
+            projectId: "todo-list-6393b",
+            storageBucket: "todo-list-6393b.firebasestorage.app",
+            messagingSenderId: "26410923820",
+            appId: "1:26410923820:web:2a42242bd906daf3b65e89"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make db and Firestore functions available globally
+        window.db = db;
+        window.firestoreFunctions = { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy };
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
