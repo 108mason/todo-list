@@ -41,23 +41,8 @@ function initializeAuth() {
 }
 
 function setupAuthListeners() {
-    const { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } = window.authFunctions;
+    const { signInWithEmailAndPassword, signOut } = window.authFunctions;
     const auth = window.auth;
-
-    // Show/hide forms
-    document.getElementById('showSignup').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('signupForm').style.display = 'block';
-        document.getElementById('authError').textContent = '';
-    });
-
-    document.getElementById('showLogin').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('signupForm').style.display = 'none';
-        document.getElementById('loginForm').style.display = 'block';
-        document.getElementById('authError').textContent = '';
-    });
 
     // Login
     document.getElementById('loginBtn').addEventListener('click', async () => {
@@ -71,29 +56,6 @@ function setupAuthListeners() {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            // Success handled by onAuthStateChanged
-        } catch (error) {
-            showAuthError(getAuthErrorMessage(error.code));
-        }
-    });
-
-    // Signup
-    document.getElementById('signupBtn').addEventListener('click', async () => {
-        const email = document.getElementById('signupEmail').value.trim();
-        const password = document.getElementById('signupPassword').value;
-
-        if (!email || !password) {
-            showAuthError('Please enter email and password');
-            return;
-        }
-
-        if (password.length < 6) {
-            showAuthError('Password must be at least 6 characters');
-            return;
-        }
-
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
             // Success handled by onAuthStateChanged
         } catch (error) {
             showAuthError(getAuthErrorMessage(error.code));
@@ -115,12 +77,6 @@ function setupAuthListeners() {
     document.getElementById('loginPassword').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             document.getElementById('loginBtn').click();
-        }
-    });
-
-    document.getElementById('signupPassword').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            document.getElementById('signupBtn').click();
         }
     });
 }
@@ -406,7 +362,27 @@ function renderTasks(tasks) {
         return;
     }
 
-    tasks.forEach(task => {
+    // Sort tasks: dated tasks first (by due date ascending), then undated tasks (by creation date descending)
+    const sortedTasks = [...tasks].sort((a, b) => {
+        // If both have dates, sort by due date (earliest first)
+        if (a.dueDate && b.dueDate) {
+            return a.dueDate.localeCompare(b.dueDate);
+        }
+        // If only a has a date, it comes first
+        if (a.dueDate && !b.dueDate) {
+            return -1;
+        }
+        // If only b has a date, it comes first
+        if (!a.dueDate && b.dueDate) {
+            return 1;
+        }
+        // If neither has a date, sort by creation date (newest first)
+        const aTime = a.createdAt?.toMillis() || 0;
+        const bTime = b.createdAt?.toMillis() || 0;
+        return bTime - aTime;
+    });
+
+    sortedTasks.forEach(task => {
         const li = document.createElement('li');
         li.className = `task-item ${task.important ? 'important' : ''}`;
 
