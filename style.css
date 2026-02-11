@@ -679,10 +679,64 @@ h1 {
     .task-section {
         flex: 1;
         padding: 20px;
+        margin-bottom: 20px;
     }
 
     .calendar-section {
-        display: none;
+        flex: 1;
+        padding: 20px;
+        min-height: 500px;
+    }
+
+    .calendar-header {
+        margin-bottom: 20px;
+    }
+
+    .calendar-header h2 {
+        font-size: 1.5em;
+    }
+
+    .nav-btn {
+        padding: 10px 16px;
+        font-size: 16px;
+    }
+
+    .calendar-grid {
+        gap: 6px;
+    }
+
+    .calendar-day {
+        padding: 8px;
+        min-height: 70px;
+    }
+
+    .day-number {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .day-note {
+        font-size: 11px;
+        -webkit-line-clamp: 2;
+    }
+
+    .day-header {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .modal-header h3 {
+        font-size: 1.2em;
+    }
+
+    #noteText {
+        min-height: 150px;
+        font-size: 14px;
     }
 
     h1 {
@@ -755,5 +809,45 @@ h1 {
     .delete-btn {
         padding: 6px 10px;
         font-size: 12px;
+    }
+
+    .calendar-header h2 {
+        font-size: 1.3em;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .calendar-day {
+        padding: 6px;
+        min-height: 60px;
+    }
+
+    .day-number {
+        font-size: 13px;
+    }
+
+    .day-note {
+        font-size: 10px;
+        -webkit-line-clamp: 1;
+    }
+
+    .day-header {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    .task-buttons {
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        width: 100%;
+        padding: 8px 12px;
     }
 }
