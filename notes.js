@@ -267,23 +267,29 @@ async function saveTypedNote() {
 }
 
 function loadSavedNotes() {
-    const { collection, onSnapshot, query, orderBy, where } = window.firestoreFunctions;
+    const { collection, onSnapshot, query, where } = window.firestoreFunctions;
     const db = window.db;
 
     if (notesUnsubscribe) {
         notesUnsubscribe();
     }
 
+    // Using only where (no orderBy) to avoid needing a Firestore composite index
     const notesQuery = query(
         collection(db, 'voiceNotes'),
-        where('userId', '==', currentUser.uid),
-        orderBy('createdAt', 'desc')
+        where('userId', '==', currentUser.uid)
     );
 
     notesUnsubscribe = onSnapshot(notesQuery, (snapshot) => {
         const notes = [];
         snapshot.forEach((doc) => {
             notes.push({ id: doc.id, ...doc.data() });
+        });
+        // Sort client-side: newest first
+        notes.sort((a, b) => {
+            const aTime = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+            const bTime = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+            return bTime - aTime;
         });
         renderNotes(notes);
     }, (error) => {
