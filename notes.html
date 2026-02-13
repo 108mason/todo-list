@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keshava - Task Manager & Calendar</title>
+    <title>Keshava - Voice Notes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Login/Signup Screen -->
+    <!-- Login Screen -->
     <div id="authContainer" class="auth-container">
         <div class="auth-box">
             <h1 class="brand-name">KESHAVA</h1>
-            <p class="auth-subtitle">Task Manager & Calendar</p>
-            <p class="auth-subtitle" style="margin-top: -15px;">Sign in to access your tasks and calendar</p>
-
+            <p class="auth-subtitle">Voice Notes</p>
+            <p class="auth-subtitle" style="margin-top: -15px;">Sign in to access your notes</p>
             <div id="loginForm" class="auth-form">
                 <h2>Login</h2>
                 <input type="email" id="loginEmail" placeholder="Email" />
                 <input type="password" id="loginPassword" placeholder="Password" />
                 <button id="loginBtn" class="auth-btn">Login</button>
             </div>
-
             <div id="authError" class="auth-error"></div>
         </div>
     </div>
@@ -35,12 +33,11 @@
             <h1 class="brand-name">KESHAVA</h1>
         </div>
 
-        <!-- User Info Bar -->
+        <!-- User Bar with Navigation -->
         <div class="user-bar">
             <div class="task-toggle">
-                <button id="lifeBtn" class="toggle-btn active">Life</button>
-                <button id="workBtn" class="toggle-btn">Work</button>
-                <a href="notes.html" class="toggle-btn" style="text-decoration:none;text-align:center;">Notes</a>
+                <a href="index.html" class="toggle-btn" style="text-decoration:none;text-align:center;">Tasks</a>
+                <a href="notes.html" class="toggle-btn active" style="text-decoration:none;text-align:center;">Notes</a>
                 <a href="monitor.html" class="toggle-btn" style="text-decoration:none;text-align:center;">Monitor</a>
             </div>
             <div class="user-info">
@@ -49,41 +46,39 @@
             </div>
         </div>
 
-        <div class="app-content">
-            <!-- Left Section: Task Manager -->
-            <div class="task-section">
-                <h1>Life Tasks</h1>
+        <!-- Notes Content -->
+        <div class="notes-page">
+            <!-- Voice Recorder Section -->
+            <div class="notes-recorder">
+                <h1>Voice Notes</h1>
+                <p class="notes-hint" id="browserSupport">Click the microphone to start recording</p>
 
-                <div class="input-section">
-                    <input type="text" id="taskInput" placeholder="Enter task (e.g., 'Buy milk 15.02.2026')..." />
-                    <button id="addButton">Add Task</button>
+                <button id="micBtn" class="mic-btn" title="Start recording">
+                    <svg id="micIcon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </button>
+
+                <div id="liveTranscript" class="live-transcript" style="display:none;">
+                    <span id="interimText" class="interim-text"></span>
                 </div>
 
-                <ul id="taskList"></ul>
-            </div>
-
-            <!-- Right Section: Calendar -->
-            <div class="calendar-section">
-                <div class="calendar-header">
-                    <button id="prevMonth" class="nav-btn">&larr;</button>
-                    <h2 id="currentMonth"></h2>
-                    <button id="nextMonth" class="nav-btn">&rarr;</button>
+                <div class="note-compose">
+                    <textarea id="noteTextarea" placeholder="Your transcribed text will appear here... You can also type manually."></textarea>
+                    <button id="saveNoteBtn" class="save-note-btn">Save Note</button>
                 </div>
-
-                <div class="calendar-grid" id="calendarGrid"></div>
             </div>
-        </div>
-    </div>
 
-    <!-- Calendar Note Modal -->
-    <div id="noteModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalDate"></h3>
-                <span class="close">&times;</span>
+            <!-- Saved Notes Section -->
+            <div class="notes-list-section">
+                <h2 class="section-title">Saved Notes</h2>
+                <div id="notesList" class="notes-list">
+                    <p class="empty-state">No notes yet. Record or type one above!</p>
+                </div>
             </div>
-            <textarea id="noteText" placeholder="Add notes for this date..."></textarea>
-            <button id="saveNote" class="save-btn">Save Note</button>
         </div>
     </div>
 
@@ -91,9 +86,8 @@
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
         import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
-        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAAQ8V3wL1_Au_HF2Jm1rcbdScO8tF4jQI",
             authDomain: "todo-list-6393b.firebaseapp.com",
@@ -103,17 +97,15 @@
             appId: "1:26410923820:web:2a42242bd906daf3b65e89"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // Make Firebase services available globally
         window.db = db;
         window.auth = auth;
         window.firestoreFunctions = { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc };
-        window.authFunctions = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged };
+        window.authFunctions = { signInWithEmailAndPassword, signOut, onAuthStateChanged };
     </script>
-    <script src="script.js"></script>
+    <script src="notes.js"></script>
 </body>
 </html>
