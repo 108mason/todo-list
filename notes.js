@@ -238,7 +238,7 @@ async function saveVoiceNote(text) {
         showToast('Note saved');
     } catch (error) {
         console.error('Error saving note:', error);
-        showToast('Failed to save note');
+        showToast('Error: ' + (error.code || error.message || 'Unknown error'));
     }
 }
 
@@ -262,7 +262,7 @@ async function saveTypedNote() {
         showToast('Note saved');
     } catch (error) {
         console.error('Error saving note:', error);
-        showToast('Failed to save note');
+        showToast('Error: ' + (error.code || error.message || 'Unknown error'));
     }
 }
 
@@ -294,6 +294,7 @@ function loadSavedNotes() {
         renderNotes(notes);
     }, (error) => {
         console.error('Error loading notes:', error);
+        showToast('Load error: ' + (error.code || error.message || 'Unknown'));
     });
 }
 
