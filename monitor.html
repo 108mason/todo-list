@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keshava - Real Estate Monitor</title>
+    <title>Keshava - Berlin Housing Directory</title>
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
     <link rel="manifest" href="manifest.json">
@@ -13,16 +13,16 @@
     <meta name="apple-mobile-web-app-title" content="Keshava">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Login Screen (same as main app) -->
+    <!-- Login Screen -->
     <div id="authContainer" class="auth-container">
         <div class="auth-box">
             <h1 class="brand-name">KESHAVA</h1>
-            <p class="auth-subtitle">Real Estate Monitor</p>
-            <p class="auth-subtitle" style="margin-top: -15px;">Sign in to access the dashboard</p>
+            <p class="auth-subtitle">Berlin Housing Directory</p>
+            <p class="auth-subtitle" style="margin-top: -15px;">Sign in to access the directory</p>
             <div id="loginForm" class="auth-form">
                 <h2>Login</h2>
                 <input type="email" id="loginEmail" placeholder="Email" />
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <!-- Dashboard (hidden until authenticated) -->
+    <!-- Main App (hidden until authenticated) -->
     <div id="appContainer" class="app-container" style="display: none;">
         <!-- Brand Header -->
         <div class="app-brand">
@@ -43,7 +43,7 @@
         <!-- User Bar with Navigation -->
         <div class="user-bar">
             <div class="task-toggle">
-                <a href="index.html" class="toggle-btn">Tasks</a>
+                <a href="index.html" class="toggle-btn" style="text-decoration:none;text-align:center;">Tasks</a>
                 <a href="notes.html" class="toggle-btn" style="text-decoration:none;text-align:center;">Notes</a>
                 <a href="monitor.html" class="toggle-btn active" style="text-decoration:none;text-align:center;">Monitor</a>
             </div>
@@ -53,52 +53,15 @@
             </div>
         </div>
 
-        <!-- Dashboard Content -->
-        <div class="monitor-dashboard">
-            <!-- Top Controls -->
-            <div class="monitor-controls">
-                <div class="monitor-controls-left">
-                    <h1 class="monitor-title">Real Estate Monitor</h1>
-                    <span id="lastRunTime" class="monitor-subtitle">Last check: --</span>
-                </div>
-                <div class="monitor-controls-right">
-                    <button id="checkNowBtn" class="check-now-btn">Check Now</button>
-                    <button id="settingsBtn" class="settings-toggle-btn">Settings</button>
-                </div>
+        <!-- Directory Content -->
+        <div class="directory-page">
+            <div class="directory-header">
+                <h1 class="directory-title">Berlin Housing Directory</h1>
+                <p class="directory-subtitle">Public housing companies &mdash; tap a card to search apartments</p>
             </div>
 
-            <!-- Settings Panel (collapsed by default) -->
-            <div id="settingsPanel" class="settings-panel" style="display: none;">
-                <div class="settings-inner">
-                    <h3>GitHub Integration</h3>
-                    <p class="settings-hint">Enter your GitHub PAT and repo to enable "Check Now". The token needs <code>repo</code> scope.</p>
-                    <div class="settings-row">
-                        <input type="text" id="githubRepo" placeholder="owner/real-estate-monitor" class="settings-input" />
-                        <input type="password" id="githubToken" placeholder="GitHub Personal Access Token" class="settings-input" />
-                        <button id="saveSettingsBtn" class="save-settings-btn">Save</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Site Status Cards -->
-            <div id="siteCards" class="site-cards">
-                <!-- Populated dynamically -->
-            </div>
-
-            <!-- Run History -->
-            <div class="monitor-section">
-                <h2 class="section-title">Recent Checks</h2>
-                <div id="runHistory" class="run-history">
-                    <p class="empty-state">No checks recorded yet.</p>
-                </div>
-            </div>
-
-            <!-- Listings Feed -->
-            <div class="monitor-section">
-                <h2 class="section-title">Latest Listings</h2>
-                <div id="listingsFeed" class="listings-feed">
-                    <p class="empty-state">No listings found yet. Run a check or wait for the next scheduled run.</p>
-                </div>
+            <div id="directoryCards" class="directory-cards">
+                <!-- Populated by JS -->
             </div>
         </div>
     </div>
@@ -106,7 +69,6 @@
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getFirestore, collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc, getDocs, limit, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
         const firebaseConfig = {
@@ -119,12 +81,9 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
         const auth = getAuth(app);
 
-        window.db = db;
         window.auth = auth;
-        window.firestoreFunctions = { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot, query, orderBy, where, setDoc, getDoc, getDocs, limit, serverTimestamp };
         window.authFunctions = { signInWithEmailAndPassword, signOut, onAuthStateChanged };
     </script>
     <script src="monitor.js"></script>
