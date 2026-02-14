@@ -74,6 +74,20 @@
         </div>
     </div>
 
+    <!-- Edit Modal -->
+    <div id="editModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-header">
+                <h3>Edit Link</h3>
+                <button id="editModalClose" class="edit-modal-close">&times;</button>
+            </div>
+            <input type="text" id="editName" placeholder="Name" />
+            <input type="url" id="editUrl" placeholder="URL" />
+            <input type="text" id="editDesc" placeholder="Description" />
+            <button id="editSaveBtn" class="edit-modal-save">Save</button>
+        </div>
+    </div>
+
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
