@@ -33,7 +33,53 @@ const WBS_COMPANIES = [
     }
 ];
 
-const EN_FACEBOOK = [];
+const EN_FACEBOOK = [
+    {
+        name: 'Berlin Housing',
+        url: 'https://www.facebook.com/groups/316886635183491/',
+        description: 'Apartments, rooms, sublets.'
+    },
+    {
+        name: 'Housing in Berlin',
+        url: 'https://www.facebook.com/groups/berlin.housing.and.roommates',
+        description: 'All types of housing.'
+    },
+    {
+        name: 'Flats in Berlin',
+        url: 'https://www.facebook.com/groups/flatsinberlin',
+        description: 'Apartments and rooms.'
+    },
+    {
+        name: 'Berlin Housing, Rooms, Apartments, Sublets',
+        url: 'https://www.facebook.com/groups/156793591673300/',
+        description: 'All types.'
+    },
+    {
+        name: 'Find Housing for Rent in Berlin',
+        url: 'https://www.facebook.com/groups/houseberlin/',
+        description: 'General rentals.'
+    },
+    {
+        name: 'Co-Housing in Berlin',
+        url: 'https://www.facebook.com/search/groups?q=Co-Housing%20in%20Berlin',
+        description: 'Shared living projects and WG flats.'
+    },
+    {
+        name: 'International Women in Berlin Housing',
+        url: 'https://www.facebook.com/search/groups?q=International%20Women%20in%20Berlin%20Housing',
+        description: 'Women-only listings.'
+    },
+    {
+        name: 'Berlin Student Flat Exchange',
+        url: 'https://www.facebook.com/search/groups?q=Berlin%20Student%20Flat%20Exchange',
+        description: 'Student-focused.'
+    },
+    {
+        name: 'Berlin Apartments & Rooms for Rent',
+        url: 'https://www.facebook.com/groups/183048595060764/',
+        description: 'Rooms and apartments.'
+    }
+];
 const DE_FACEBOOK = [];
 
 let currentUser = null;
