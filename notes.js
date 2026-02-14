@@ -100,7 +100,9 @@ function showToast(message) {
     const toast = document.getElementById('toast');
     toast.textContent = message;
     toast.classList.add('toast-show');
-    setTimeout(() => toast.classList.remove('toast-show'), 2500);
+    // Show errors longer so user can read them
+    const duration = message.startsWith('Error') || message.startsWith('Load error') ? 5000 : 2500;
+    setTimeout(() => toast.classList.remove('toast-show'), duration);
 }
 
 // ─── Notes Feature ───────────────────────────────────────
@@ -129,6 +131,7 @@ function setupSpeechRecognition() {
 
     recognition.onresult = (event) => {
         let interim = '';
+        // Only process new results from resultIndex onward
         for (let i = event.resultIndex; i < event.results.length; i++) {
             const transcript = event.results[i][0].transcript;
             if (event.results[i].isFinal) {
@@ -153,16 +156,16 @@ function setupSpeechRecognition() {
             document.getElementById('browserSupport').textContent =
                 'Microphone blocked. Allow access in browser settings.';
         }
-        stopRecording(false);
+        if (event.error !== 'no-speech') {
+            stopRecording(false);
+        }
     };
 
     recognition.onend = () => {
+        // Don't auto-restart — it causes duplicate text on mobile.
+        // If the user is still recording, save what we have and stop.
         if (isRecording) {
-            try {
-                recognition.start();
-            } catch (e) {
-                // Already started
-            }
+            stopRecording(true);
         }
     };
 }
