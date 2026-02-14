@@ -455,7 +455,7 @@ h1 {
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 10px;
     flex: 1;
 }
@@ -470,6 +470,8 @@ h1 {
     display: flex;
     flex-direction: column;
     min-height: 100px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .calendar-day:hover {
@@ -523,6 +525,8 @@ h1 {
     color: #71767B;
     border-radius: 8px;
     font-size: 16px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 /* Modal Styles */
