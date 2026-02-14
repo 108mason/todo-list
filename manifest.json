@@ -1,0 +1,17 @@
+{
+  "name": "Keshava",
+  "short_name": "Keshava",
+  "description": "Task Manager, Voice Notes & Calendar",
+  "start_url": "/todo-list/",
+  "display": "standalone",
+  "background_color": "#15202B",
+  "theme_color": "#1D9BF0",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
