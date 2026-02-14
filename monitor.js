@@ -80,7 +80,58 @@ const EN_FACEBOOK = [
         description: 'Rooms and apartments.'
     }
 ];
-const DE_FACEBOOK = [];
+const DE_FACEBOOK = [
+    {
+        name: 'WG & Wohnung Berlin',
+        url: 'https://www.facebook.com/groups/wg.wohnung.berlin',
+        description: 'WG rooms and apartments. Highly active.'
+    },
+    {
+        name: 'wg.wohnung.Berlin',
+        url: 'https://www.facebook.com/groups/wg.wohnung.berlin/',
+        description: 'WG rooms and apartments. Frequently mentioned in guides.'
+    },
+    {
+        name: 'Wohnungen in Berlin',
+        url: 'https://www.facebook.com/groups/wohnenberlin/',
+        description: 'Large, general-purpose housing group.'
+    },
+    {
+        name: 'WG-Zimmer & Wohnungen Berlin',
+        url: 'https://www.facebook.com/groups/1705212493049107/',
+        description: 'Focused on WG rooms. Active listings.'
+    },
+    {
+        name: 'Berliner WG-Zimmer',
+        url: 'https://www.facebook.com/groups/251856141592447/',
+        description: 'WG rooms only. Specialized for shared flats.'
+    },
+    {
+        name: 'Flatmate.Berlin',
+        url: 'https://www.facebook.com/groups/flatmate.berlin',
+        description: 'Finding flatmates. Shared living focused.'
+    },
+    {
+        name: 'Berlin.startup.flats & flatshares',
+        url: 'https://www.facebook.com/groups/berlin.startup.flats',
+        description: 'Young professionals. Sublets and flatshares.'
+    },
+    {
+        name: 'Zimmer / WG / Wohnung in Berlin',
+        url: 'https://www.facebook.com/groups/easy.wg/',
+        description: 'All types. Regular postings.'
+    },
+    {
+        name: 'Wohnung Berlin - privat & provisionsfrei',
+        url: 'https://www.facebook.com/groups/158572641291/',
+        description: 'No-commission private listings.'
+    },
+    {
+        name: 'Wohnungen mieten in Berlin',
+        url: 'https://www.facebook.com/groups/1678546859106556/',
+        description: 'Apartments for rent. General listings.'
+    }
+];
 
 let currentUser = null;
 
