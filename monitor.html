@@ -53,15 +53,23 @@
             </div>
         </div>
 
-        <!-- Directory Content -->
-        <div class="directory-page">
-            <div class="directory-header">
-                <h1 class="directory-title">Berlin Housing Directory</h1>
-                <p class="directory-subtitle">Public housing companies &mdash; tap a card to search apartments</p>
+        <!-- 3-Column Directory -->
+        <div class="directory-columns">
+            <div class="directory-col">
+                <h2 class="dir-col-title">WBS</h2>
+                <div id="wbsCards" class="directory-cards"></div>
             </div>
-
-            <div id="directoryCards" class="directory-cards">
-                <!-- Populated by JS -->
+            <div class="directory-col">
+                <h2 class="dir-col-title">English Facebook</h2>
+                <div id="enFbCards" class="directory-cards">
+                    <p class="dir-empty">No links yet</p>
+                </div>
+            </div>
+            <div class="directory-col">
+                <h2 class="dir-col-title">German Facebook</h2>
+                <div id="deFbCards" class="directory-cards">
+                    <p class="dir-empty">No links yet</p>
+                </div>
             </div>
         </div>
     </div>

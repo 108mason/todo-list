@@ -1,43 +1,40 @@
 // ── Berlin Housing Directory ──
 
-const HOUSING_COMPANIES = [
+const WBS_COMPANIES = [
     {
         name: 'Degewo',
         url: 'https://www.degewo.de/wohnen',
-        description: 'One of Berlin\'s largest, with many WBS apartments.',
-        icon: '🏢'
+        description: 'One of Berlin\'s largest, with many WBS apartments.'
     },
     {
         name: 'HOWOGE',
         url: 'https://www.howoge.de/wohnungsangebote',
-        description: 'Manages a large portfolio of social housing.',
-        icon: '🏠'
+        description: 'Manages a large portfolio of social housing.'
     },
     {
         name: 'GESOBAU',
         url: 'https://www.gesobau.de/wohnungssuche',
-        description: 'Major provider in many districts.',
-        icon: '🏗️'
+        description: 'Major provider in many districts.'
     },
     {
         name: 'Stadt und Land',
         url: 'https://www.stadtundland.de',
-        description: 'Significant stock of subsidized housing.',
-        icon: '🌆'
+        description: 'Significant stock of subsidized housing.'
     },
     {
         name: 'WOGEHEG',
         url: 'https://www.wogeheg.de',
-        description: 'Active in several Berlin boroughs.',
-        icon: '🏘️'
+        description: 'Active in several Berlin boroughs.'
     },
     {
         name: 'Berlinovo',
         url: 'https://www.berlinovo.de/en',
-        description: 'Offers various subsidized housing options.',
-        icon: '🔑'
+        description: 'Offers various subsidized housing options.'
     }
 ];
+
+const EN_FACEBOOK = [];
+const DE_FACEBOOK = [];
 
 let currentUser = null;
 
@@ -61,7 +58,7 @@ function initAuth() {
             document.getElementById('authContainer').style.display = 'none';
             document.getElementById('appContainer').style.display = 'block';
             document.getElementById('userEmail').textContent = user.email;
-            renderDirectory();
+            renderAllColumns();
         } else {
             currentUser = null;
             document.getElementById('authContainer').style.display = '';
@@ -86,20 +83,29 @@ function initAuth() {
     });
 }
 
-// ── Render Directory ──
+// ── Render ──
 
-function renderDirectory() {
-    const container = document.getElementById('directoryCards');
-    container.innerHTML = HOUSING_COMPANIES.map(company => `
-        <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="dir-card">
-            <div class="dir-card-icon">${company.icon}</div>
+function renderAllColumns() {
+    renderColumn('wbsCards', WBS_COMPANIES);
+    renderColumn('enFbCards', EN_FACEBOOK);
+    renderColumn('deFbCards', DE_FACEBOOK);
+}
+
+function renderColumn(containerId, items) {
+    const container = document.getElementById(containerId);
+    if (items.length === 0) {
+        container.innerHTML = '<p class="dir-empty">No links yet</p>';
+        return;
+    }
+    container.innerHTML = items.map(item => `
+        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="dir-card">
             <div class="dir-card-body">
-                <h3 class="dir-card-name">${company.name}</h3>
-                <p class="dir-card-desc">${company.description}</p>
-                <span class="dir-card-url">${company.url.replace('https://www.', '').replace('https://', '')}</span>
+                <h3 class="dir-card-name">${item.name}</h3>
+                <p class="dir-card-desc">${item.description}</p>
+                <span class="dir-card-url">${item.url.replace('https://www.', '').replace('https://', '')}</span>
             </div>
             <div class="dir-card-arrow">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                     <polyline points="15 3 21 3 21 9"/>
                     <line x1="10" y1="14" x2="21" y2="3"/>
