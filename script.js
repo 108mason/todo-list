@@ -181,6 +181,37 @@ function initializeApp() {
         }
     };
 
+    // Modal task type toggle
+    let modalTaskType = 'life';
+    const modalLifeBtn = document.getElementById('modalLifeBtn');
+    const modalWorkBtn = document.getElementById('modalWorkBtn');
+
+    modalLifeBtn.addEventListener('click', () => {
+        modalTaskType = 'life';
+        modalLifeBtn.classList.add('active');
+        modalWorkBtn.classList.remove('active');
+    });
+
+    modalWorkBtn.addEventListener('click', () => {
+        modalTaskType = 'work';
+        modalWorkBtn.classList.add('active');
+        modalLifeBtn.classList.remove('active');
+    });
+
+    // Add task from calendar modal
+    const addTaskFromCalendarBtn = document.getElementById('addTaskFromCalendar');
+    const modalTaskInput = document.getElementById('modalTaskInput');
+
+    addTaskFromCalendarBtn.addEventListener('click', () => {
+        addTaskFromCalendarModal(modalTaskType);
+    });
+
+    modalTaskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTaskFromCalendarModal(modalTaskType);
+        }
+    });
+
     // Task toggle buttons
     document.getElementById('lifeBtn').addEventListener('click', () => switchTaskType('life'));
     document.getElementById('workBtn').addEventListener('click', () => switchTaskType('work'));
@@ -567,6 +598,7 @@ function openNoteModal(dateKey, note) {
     const modal = document.getElementById('noteModal');
     document.getElementById('modalDate').textContent = formatDate(dateKey);
     document.getElementById('noteText').value = note;
+    document.getElementById('modalTaskInput').value = '';
     modal.classList.add('show');
     document.getElementById('noteText').focus();
 }
@@ -575,6 +607,47 @@ function formatDate(dateKey) {
     const date = new Date(dateKey + 'T00:00:00');
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
+}
+
+async function addTaskFromCalendarModal(taskType) {
+    const taskInput = document.getElementById('modalTaskInput');
+    const taskText = taskInput.value.trim();
+
+    if (taskText === '') {
+        alert('Please enter a task!');
+        return;
+    }
+
+    if (!selectedDate) return;
+
+    const { collection, addDoc } = window.firestoreFunctions;
+    const db = window.db;
+    const collectionName = taskType === 'life' ? 'lifeTasks' : 'workTasks';
+    const tasksCollection = collection(db, collectionName);
+
+    // Format date as DD.MM.YYYY for display in the task text
+    const dateParts = selectedDate.split('-');
+    const displayDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
+
+    try {
+        // Add task to Firestore with the calendar date
+        await addDoc(tasksCollection, {
+            text: `${taskText} ${displayDate}`,
+            important: false,
+            createdAt: new Date(),
+            dueDate: selectedDate
+        });
+
+        // Also add it to the calendar note
+        await updateCalendarWithTask(selectedDate, taskText);
+
+        // Clear input and close modal
+        taskInput.value = '';
+        document.getElementById('noteModal').classList.remove('show');
+    } catch (error) {
+        console.error('Error adding task from calendar:', error);
+        alert('Error adding task. Please try again.');
+    }
 }
 
 async function saveNote(db, dateKey, note, setDoc, getDoc) {

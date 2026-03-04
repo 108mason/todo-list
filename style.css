@@ -623,6 +623,111 @@ h1 {
     box-shadow: 0 0 20px rgba(29, 155, 240, 0.4);
 }
 
+/* Modal Task Section */
+.modal-task-section {
+    margin-top: 10px;
+}
+
+.modal-task-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.modal-task-divider::before,
+.modal-task-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #38444D;
+}
+
+.modal-task-divider span {
+    color: #71767B;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+#modalTaskInput {
+    width: 100%;
+    padding: 12px 15px;
+    background: #15202B;
+    border: 2px solid #38444D;
+    border-radius: 9999px;
+    font-size: 16px;
+    color: #E7E9EA;
+    transition: border-color 0.3s;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#modalTaskInput:focus {
+    outline: none;
+    border-color: #1D9BF0;
+    box-shadow: 0 0 10px rgba(29, 155, 240, 0.2);
+}
+
+#modalTaskInput::placeholder {
+    color: #6E767D;
+}
+
+.modal-task-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.modal-task-toggle {
+    display: flex;
+    gap: 4px;
+    background: #15202B;
+    padding: 4px;
+    border-radius: 9999px;
+    border: 1px solid #38444D;
+}
+
+.modal-toggle-btn {
+    padding: 8px 16px;
+    background: transparent;
+    color: #71767B;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.modal-toggle-btn:hover {
+    color: #1D9BF0;
+    background: rgba(29, 155, 240, 0.1);
+}
+
+.modal-toggle-btn.active {
+    background: #1D9BF0;
+    color: #FFFFFF;
+    box-shadow: 0 0 10px rgba(29, 155, 240, 0.3);
+}
+
+.add-task-btn {
+    flex: 1;
+    padding: 10px 20px;
+    background: #1D9BF0;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 9999px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-task-btn:hover {
+    background: #1A8CD8;
+    box-shadow: 0 0 15px rgba(29, 155, 240, 0.4);
+}
+
 /* Mobile-friendly responsive design */
 @media (max-width: 768px) {
     body {
@@ -750,6 +855,31 @@ h1 {
     #noteText {
         min-height: 150px;
         font-size: 14px;
+    }
+
+    #modalTaskInput {
+        font-size: 14px;
+    }
+
+    .modal-task-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-task-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .modal-toggle-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .add-task-btn {
+        width: 100%;
+        padding: 12px;
     }
 
     h1 {
