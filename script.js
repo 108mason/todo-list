@@ -611,14 +611,24 @@ function formatDate(dateKey) {
 
 async function addTaskFromCalendarModal(taskType) {
     const taskInput = document.getElementById('modalTaskInput');
+    const addBtn = document.getElementById('addTaskFromCalendar');
     const taskText = taskInput.value.trim();
 
     if (taskText === '') {
-        alert('Please enter a task!');
+        taskInput.classList.add('input-error');
+        taskInput.placeholder = 'Please enter a task name...';
+        setTimeout(() => {
+            taskInput.classList.remove('input-error');
+            taskInput.placeholder = 'Enter task name...';
+        }, 1500);
         return;
     }
 
     if (!selectedDate) return;
+
+    // Disable button while saving
+    addBtn.disabled = true;
+    addBtn.textContent = 'Adding...';
 
     const { collection, addDoc } = window.firestoreFunctions;
     const db = window.db;
@@ -641,11 +651,26 @@ async function addTaskFromCalendarModal(taskType) {
         // Also add it to the calendar note
         await updateCalendarWithTask(selectedDate, taskText);
 
-        // Clear input and close modal
+        // Switch the sidebar to show the list this task was added to
+        if (currentTaskType !== taskType) {
+            switchTaskType(taskType);
+        }
+
+        // Show success feedback
+        addBtn.textContent = 'Added!';
+        addBtn.classList.add('success');
         taskInput.value = '';
-        document.getElementById('noteModal').classList.remove('show');
+
+        setTimeout(() => {
+            document.getElementById('noteModal').classList.remove('show');
+            addBtn.textContent = 'Add Task';
+            addBtn.classList.remove('success');
+            addBtn.disabled = false;
+        }, 600);
     } catch (error) {
         console.error('Error adding task from calendar:', error);
+        addBtn.textContent = 'Add Task';
+        addBtn.disabled = false;
         alert('Error adding task. Please try again.');
     }
 }
